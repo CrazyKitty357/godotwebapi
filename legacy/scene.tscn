@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dwirfspeescb8"]
+
+[ext_resource type="Script" uid="uid://ccf46h7s8s0lj" path="res://legacy/web_server.gd" id="1_gbykm"]
+
+[node name="Scene" type="Control" unique_id=987051939]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WebServer" type="Node" parent="." unique_id=2010832949]
+script = ExtResource("1_gbykm")
