@@ -18,4 +18,5 @@ this is an addon designed to let developers add a custom http interface which wo
 10. copy the code snippet via clicking on the 2 squares on the top right of the code snippet box
 11. go back to the code and paste it in.
 12. edit the match statement to fit your needs.
-13. go to http://localhost:60407 (named that way because it looks a bit like the word godot) and you should see the request go through.
+13. start the project.
+14. go to http://localhost:60407 (named that way because it looks a bit like the word godot) and you should see the request go through.
