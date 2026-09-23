@@ -3,7 +3,7 @@ extends Node
 class_name WebAPI
 ## A node that allows you to control godot via a curl request or a browser![br]
 ## [br]
-## It's recommended to have your node extend from this and it's code should have the [Node3D] function.
+## It's recommended to have your node extend from this and it's code should have the handle_request function.
 
 func _ready() -> void:
 	if Engine.is_editor_hint():

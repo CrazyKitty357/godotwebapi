@@ -8,7 +8,14 @@ var request_mutex = Mutex.new()
 var request_queue: Array = []
 var request_semaphore = Semaphore.new()
 
-@export var port : int = 60407 # change this to specify the port number
+var port : int = 60407 # change this to specify the port number
+
+## change this to change what content type your browser expects.[br]
+## useful types:[br]
+## "text/html" - used when sending an html web page[br]
+## "text/text" - used for sending raw text[br]
+## "application/json" - used when sending json data[br]
+var html_content_type = "text/html" 
 
 func _ready():
 	server = TCPServer.new()
@@ -21,6 +28,7 @@ func _ready():
 	var callable = Callable(self, "_process_connections")
 	thread.start(callable)
 
+## Binds webserver.gd to a WebAPI node.
 func register_web_api(api: WebAPI):
 	web_api = api
 
@@ -67,16 +75,17 @@ func _process_connections():
 			
 			var response = (
 				"HTTP/1.1 200 OK\r\n" +
-				"Content-Type: text/html\r\n" +
+				"Content-Type: %s\r\n" +
 				"Content-Length: %d\r\n" +
 				"Connection: close\r\n" +
 				"\r\n" +
 				"%s"
-				) % [html_content.to_utf8_buffer().size(), html_content]
+				) % [html_content_type, html_content.to_utf8_buffer().size(), html_content]
 			
 			client.put_data(response.to_utf8_buffer())
 			client.disconnect_from_host()
 
+## internal function that converts the browser's/curl's request headers to a dict and sends them to the request queue
 func _process_request(request: Dictionary):
 	var data: Dictionary = request["data"]
 	
@@ -87,6 +96,8 @@ func _process_request(request: Dictionary):
 	
 	request.semaphore.post()
 
+
+## internal function that converts the request string to a dictionary
 func _parse_data(raw: String) -> Dictionary:
 	var lines = raw.split("\r\n")
 	var first_line = lines[0].split(" ")
@@ -122,5 +133,6 @@ func _parse_data(raw: String) -> Dictionary:
 	
 	return request
 
+## internal function used to move the data from the server back to the WebAPI node.
 func _emit_request(api: WebAPI, data: Dictionary) -> void:
 	api.request_received.emit(data)
