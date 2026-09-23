@@ -4,7 +4,7 @@ extends WebAPI
 func _ready() -> void:
 	super()
 	
-	print("hello world")
+	print_rich("[i]sample_text[/i]")
 
 func handle_request(data: Dictionary) -> String:
 	# print(data)
@@ -40,7 +40,7 @@ func handle_request(data: Dictionary) -> String:
 						<p>
 							the current time is %s.
 						</p>
-						<a href='http://localhost:60407/hello'>
+						<a href='hello'>
 							click me for a funky suprise :D
 						</a>
 						<br>
@@ -48,8 +48,7 @@ func handle_request(data: Dictionary) -> String:
 						<br>
 						<a href='quit'>click me to close the example application</a>
 					</body>
-				</html>"
-					) % [Time.get_datetime_string_from_system(false, true)]
+				</html>") % [Time.get_datetime_string_from_system(false, true)]
 
 
 func _on_button_pressed() -> void:
