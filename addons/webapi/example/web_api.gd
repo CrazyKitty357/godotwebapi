@@ -21,7 +21,7 @@ func handle_request(data: Dictionary) -> String:
 		"/quit":
 			get_tree().quit(0)
 			return "byebye!"
-		_:
+		"/":
 			# print(data)
 			return (
 				"<html>
@@ -49,7 +49,8 @@ func handle_request(data: Dictionary) -> String:
 						<a href='quit'>click me to close the example application</a>
 					</body>
 				</html>") % [Time.get_datetime_string_from_system(false, true)]
-
+		_:
+			return "404 ERROR PAGE NOT FOUND"
 
 func _on_button_pressed() -> void:
 	OS.shell_open("http://localhost:60407")
