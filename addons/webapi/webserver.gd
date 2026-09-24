@@ -21,9 +21,9 @@ func _ready():
 	server = TCPServer.new()
 	var err = server.listen(port)
 	if err != OK:
-		print("Failed to start server on port " + str(port))
+		print("Failed to start the webserver on port " + str(port))
 		return
-	print("Server started on port " + str(port))
+	print_rich("webserver started at [url]http://localhost:%s[/url]" % [port])
 	thread = Thread.new()
 	var callable = Callable(self, "_process_connections")
 	thread.start(callable)
